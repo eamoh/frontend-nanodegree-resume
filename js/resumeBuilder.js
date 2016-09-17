@@ -95,30 +95,34 @@ var projects = {
 
 // function to display bio object content in resume
 bio.display = function() {
-    //intializing header variables
+    //intializing and adding header variables
     var formattedName = HTMLheaderName.replace("%data%", bio.name);
     var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
     var formattedWelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMsg);
     var formattedbioPic = HTMLbioPic.replace("%data%", bio.bioPic);
 
-    // intializing contact variables
+    $("#header").prepend(formattedRole);
+    $("#header").prepend(formattedName);
+    $("#header").append(formattedWelcomeMsg);
+    $("#header").append(formattedbioPic);
+
+    // intializing and adding contact variables
     var formattedMobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
     var formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
     var formattedGithub = HTMLgithub.replace("%data%", bio.contacts.github);
     var formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
     var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
 
-    // append / prepend bio
-    $("#header").prepend(formattedRole);
-    $("#header").prepend(formattedName);
-    $("#header").append(formattedWelcomeMsg);
-    $("#header").append(formattedbioPic);
-
-    $("#topContacts").append(formattedMobile);
-    $("#topContacts").append(formattedEmail);
-    $("#topContacts").append(formattedGithub);
-    $("#topContacts").append(formattedTwitter);
-    $("#topContacts").append(formattedLocation);
+    //adding contacts to header and footer
+    var idStrings = ["#topContacts", "#footerContacts"];
+    for (var i = 0, id; i < idStrings.length; i++) {
+        id = idStrings[i];
+        $(id).append(formattedMobile);
+        $(id).append(formattedEmail);
+        $(id).append(formattedGithub);
+        $(id).append(formattedTwitter);
+        $(id).append(formattedLocation);
+    }
 
     // insert skills
     if (bio.skills.length > 0) {
